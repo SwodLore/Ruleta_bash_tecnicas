@@ -22,7 +22,7 @@ function helpPanel(){
   
   echo -e  "\n${yellowColor}[+]${endColor}${grayColor}Uso:${endColor}${purpleColor}$0${endColor}\n" 
   echo -e "\t${blueColor}-m)${endColor}\t${grayColor}Dinero con el que se desea jugar${endColor}"
-  echo -e "\t${blueColor}-t)${endColor}\t${grayColor}Técnica a utilizar${endColor}${purpleColor}(${endCoolr}${yellowColor}martingala${endColor}${blueColor}/${endColor}${yellowColor}inverseLabrouchere${endColor}${purpleColor})${endColor}\n"
+  echo -e "\t${blueColor}-t)${endColor}\t${grayColor}Técnica a utilizar${endColor}${purpleColor}(${endColor}${yellowColor}martingala${endColor}${blueColor}/${endColor}${yellowColor}inverseLabrouchere${endColor}${purpleColor})${endColor}\n"
   exit 1
 }
 
@@ -188,10 +188,13 @@ function inverseLabrouchere(){
         my_sequence+=($bet)
         my_sequence=(${my_sequence[@]})
         echo -e "${yellowColor}[+]${endColor}${grayColor} La nueva secuencia es${endColor} ${greenColor}[${my_sequence[@]}]${endColor}"
-        if [ "${#my_sequence[@]}" -ne 1 ]; then
+        if [ "${#my_sequence[@]}" -ge 2 ]; then
           bet=$((${my_sequence[0]} + ${my_sequence[-1]}))
         elif [ "${#my_sequence[@]}" -eq 1 ]; then
           bet=${my_sequence[0]}
+        else 
+          my_sequence=(1 2 3 4)
+          bet=$((${my_sequence[0]}+${my_sequence[-1]}))
         fi
       elif [ "$(($random_number % 2))" -eq 0 ]; then
           echo -e "${redColor}[+] El número es par, ¡pierdes!${endColor}"
